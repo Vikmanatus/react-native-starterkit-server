@@ -1,0 +1,21 @@
+name: Tests
+on:
+  push:
+    branches: [master, develop]
+    # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  checking-version-file-config:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.4
+      - name: About
+        run: echo "This job is used to run the unit tests of the application"
+      - name: Dependencies installation
+        run: yarn install
+      - name: Run tests
+        run: yarn test

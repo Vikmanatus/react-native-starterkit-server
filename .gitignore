@@ -1,0 +1,8 @@
+/node_modules
+.env
+/build
+collection.json
+/certs
+gha-creds-*.json
+/coverage
+/.scannerwork
