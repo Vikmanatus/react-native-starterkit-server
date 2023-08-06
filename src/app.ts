@@ -1,16 +1,22 @@
 import express, { Request } from 'express';
 import morgan from 'morgan';
 import { NODE_ENV, permissionConfig } from '@/config';
-import helmet from 'helmet';
 import { BasicJsonResponse, ROUTER_ENDPOINTS, TypedResponse } from './types';
 import { authRouter } from './routes';
 import { authApiLimiter } from './utils/security';
+import helmet from 'helmet';
+import path from 'path';
 
 const app = express();
 
+app.use(express.static('public'));
+
 app.use(helmet({ xssFilter: true, hidePoweredBy: true }));
 
-
+app.get('/.well-known/apple-app-site-association', function (_request, response) {
+  const filePath = path.join(__dirname, '../public/.well-known/apple-app-site-association.json');
+  response.sendFile(filePath);
+});
 if (NODE_ENV === 'development') {
   /**
    * Used to display information about incoming HTTP requests in the terminal
@@ -39,7 +45,6 @@ app.use(express.urlencoded({ extended: true }));
  * Root API home
  */
 app.get(permissionConfig.home.url, (_req: Request, res: TypedResponse<BasicJsonResponse>) => {
-  
   return res.status(200).json({ message: 'Welcolme to express-typescript-starterkit', success: true });
 });
 
