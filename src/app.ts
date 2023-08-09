@@ -33,6 +33,7 @@ app.use(ROUTER_ENDPOINTS.AUTH, authApiLimiter);
 
 app.use(ROUTER_ENDPOINTS.AUTH, authRouter);
 app.use(ROUTER_ENDPOINTS.PROFILE, profileRouter);
+
 /**
  * Authorizing parsing of JSON body and URL encoded requests
  */
@@ -40,7 +41,7 @@ app.use(express.json({ limit: '300kb' }));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/.well-known/apple-app-site-association', function (_request, response) {
-  const filePath = path.join(__dirname, '../public/.well-known/apple-app-site-association.json');
+  const filePath = path.join(__dirname, '../public/.well-known/apple-app-site-association');
   response.sendFile(filePath);
 });
 
