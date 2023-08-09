@@ -13,8 +13,8 @@ export enum AUTHORIZED_ROLES {
  * The keys thaht will be used inside permissionConfig object
  */
 export enum PERMISSION_ROUTES_KEYS {
-  HOME="home",
-  AUTH_HOME="authRoot"
+  HOME = 'home',
+  AUTH_HOME = 'authRoot',
 }
 /**
  * The endpoints passed to Express router function
@@ -28,6 +28,7 @@ export enum AUTHORIZED_ENDPOINTS {
  */
 export enum ROUTER_ENDPOINTS {
   AUTH = '/api/auth',
+  PROFILE = '/api/profile',
 }
 
 /**
@@ -38,7 +39,6 @@ export enum MATCH_ENDPOINTS {
   MATCH_API_ROOT_ENDPOINT = AUTHORIZED_ENDPOINTS.API_ROOT_ENDPOINT,
   MATCH_AUTH_ROOT_ENDPOINT = ROUTER_ENDPOINTS.AUTH,
 }
-
 
 /**
  * This type defines the different values used in our permission config objects
