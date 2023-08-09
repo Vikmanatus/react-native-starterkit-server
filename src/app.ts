@@ -2,7 +2,7 @@ import express, { Request } from 'express';
 import morgan from 'morgan';
 import { NODE_ENV, permissionConfig } from '@/config';
 import { BasicJsonResponse, ROUTER_ENDPOINTS, TypedResponse } from './types';
-import { profileRouter } from './routes';
+import { authRouter, profileRouter } from './routes';
 import { authApiLimiter } from './utils/security';
 import helmet from 'helmet';
 import path from 'path';
@@ -30,6 +30,8 @@ app.use(ROUTER_ENDPOINTS.AUTH, authApiLimiter);
 /**
  * The different other endpoints used in our API
  */
+
+app.use(ROUTER_ENDPOINTS.AUTH, authRouter);
 app.use(ROUTER_ENDPOINTS.PROFILE, profileRouter);
 /**
  * Authorizing parsing of JSON body and URL encoded requests
