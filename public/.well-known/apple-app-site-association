@@ -5,7 +5,8 @@
       {
         "appID": "C7477XXG85.com.vikman.dev.reactnativestarterkit",
         "paths": [
-          "/api/auth"
+          "/api/auth",
+          "/api/profile"
         ]
       }
     ]
