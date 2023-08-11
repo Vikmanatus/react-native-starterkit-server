@@ -5,7 +5,7 @@ import { BasicJsonResponse, ROUTER_ENDPOINTS, TypedResponse } from './types';
 import { authRouter, profileRouter } from './routes';
 import { authApiLimiter } from './utils/security';
 import helmet from 'helmet';
-import test from '../public/.well-known/apple-app-site-association.json';
+import path from 'path';
 const app = express();
 
 app.use(express.static('public'));
@@ -40,9 +40,8 @@ app.use(express.json({ limit: '300kb' }));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/.well-known/apple-app-site-association', function (_request, response) {
-  // const filePath = path.join(__dirname, '../public/.well-known/apple-app-site-association');
-  // response.sendFile(filePath);
-  return response.json(test);
+  const filePath = path.join(__dirname, '../public/.well-known/apple-app-site-association');
+  return response.sendFile(filePath);
 });
 
 /**
