@@ -2,11 +2,21 @@ import express, { Request } from 'express';
 import morgan from 'morgan';
 import { NODE_ENV, permissionConfig } from '@/config';
 import { BasicJsonResponse, ROUTER_ENDPOINTS, TypedResponse } from './types';
-import { authRouter, profileRouter } from './routes';
+import { authRouter, newRouter, profileRouter } from './routes';
 import { authApiLimiter } from './utils/security';
 import helmet from 'helmet';
-import path from 'path';
 const app = express();
+
+/**
+ * Authorizing parsing of JSON body and URL encoded requests
+ */
+app.use(express.json({ limit: '300kb' }));
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/.well-known', (_req, res, next) => {
+  res.header('Content-Type', 'application/json');
+  next();
+});
 
 app.use(express.static('public'));
 
@@ -32,17 +42,7 @@ app.use(ROUTER_ENDPOINTS.AUTH, authApiLimiter);
 
 app.use(ROUTER_ENDPOINTS.AUTH, authRouter);
 app.use(ROUTER_ENDPOINTS.PROFILE, profileRouter);
-
-/**
- * Authorizing parsing of JSON body and URL encoded requests
- */
-app.use(express.json({ limit: '300kb' }));
-app.use(express.urlencoded({ extended: true }));
-
-app.get('/.well-known/apple-app-site-association', function (_request, response) {
-  const filePath = path.join(__dirname, '../public/.well-known/apple-app-site-association');
-  return response.sendFile(filePath);
-});
+app.use(ROUTER_ENDPOINTS.NEWS, newRouter);
 
 /**
  * Root API home

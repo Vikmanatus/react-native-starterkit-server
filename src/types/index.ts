@@ -29,6 +29,7 @@ export enum AUTHORIZED_ENDPOINTS {
 export enum ROUTER_ENDPOINTS {
   AUTH = '/api/auth',
   PROFILE = '/api/profile',
+  NEWS = '/api/news',
 }
 
 /**
